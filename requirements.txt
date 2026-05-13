@@ -1,0 +1,98 @@
+# ==============================================================
+# requirements.txt — Python Package Dependencies
+# ==============================================================
+#
+# WHY THIS FILE EXISTS:
+#   Lists every Python library this project needs. Running
+#   `pip install -r requirements.txt` installs them all at once.
+#
+# HOW PACKAGES ARE ORGANIZED:
+#   Grouped by purpose so beginners understand what each does.
+#
+# ==============================================================
+
+# --- Web Framework ---
+# FastAPI: The modern, fast web framework for building APIs.
+# Think of it as the "engine" of our backend server.
+fastapi==0.111.0
+
+# Uvicorn: The ASGI server that RUNS our FastAPI app.
+# Like Apache/Nginx but for async Python apps.
+uvicorn[standard]==0.29.0
+
+# --- Data Validation ---
+# Pydantic: Validates data shapes. If you expect an email string
+# and someone sends a number, Pydantic catches it automatically.
+pydantic==2.7.1
+pydantic-settings==2.2.1
+
+# --- Authentication & Security ---
+# python-jose: Creates and verifies JWT (JSON Web Tokens).
+# JWTs are like digital "ID cards" that prove who you are.
+python-jose[cryptography]==3.3.0
+
+# passlib + bcrypt: Securely hashes passwords.
+# NEVER store plain-text passwords. Hashing makes them one-way encrypted.
+passlib[bcrypt]==1.7.4
+bcrypt==4.1.3
+
+# --- Google Gemini AI ---
+# The official Python SDK for Google's Gemini language model.
+# This is what generates intelligent answers from context.
+google-generativeai==0.7.2
+
+# --- Vector Database ---
+# ChromaDB: An open-source vector database.
+# Stores and searches "embeddings" (numerical text representations).
+chromadb==0.5.0
+
+# --- Embeddings & NLP ---
+# SentenceTransformers: Converts text into numerical vectors (embeddings).
+# "Hello world" becomes [0.23, -0.11, 0.87, ...] — 384 numbers.
+sentence-transformers==3.0.1
+
+# --- LangChain (selective use) ---
+# LangChain provides utilities for text splitting and document loading.
+# We use it for its excellent text chunking strategies.
+langchain==0.2.1
+langchain-community==0.2.1
+
+# --- Document Processing ---
+# PyPDF2: Reads and extracts text from PDF files.
+PyPDF2==3.0.1
+
+# python-docx: Reads Microsoft Word (.docx) documents.
+python-docx==1.1.2
+
+# python-multipart: Enables file upload handling in FastAPI.
+python-multipart==0.0.9
+
+# --- Logging ---
+# Loguru: Beautiful, simple Python logging.
+# Way better than Python's built-in logging module.
+loguru==0.7.2
+
+# --- Environment Variables ---
+# python-dotenv: Loads variables from .env file into os.environ.
+python-dotenv==1.0.1
+
+# --- HTTP Client ---
+# httpx: Modern async HTTP client (used internally by some libraries).
+httpx==0.27.0
+
+# --- Utilities ---
+# aiofiles: Async file I/O — reads/writes files without blocking.
+aiofiles==23.2.1
+
+# python-dateutil: Easy date parsing and manipulation.
+python-dateutil==2.9.0
+
+# --- Development Tools ---
+# pytest: Test runner for our test files in /tests/.
+pytest==8.2.0
+pytest-asyncio==0.23.7
+
+# --- CORS & Middleware ---
+# Included with FastAPI/Starlette, but listed for clarity.
+# starlette is FastAPI's underlying framework.
+starlette==0.37.2
