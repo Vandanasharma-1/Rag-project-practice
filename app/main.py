@@ -93,9 +93,9 @@ from app.database.chroma_manager import chroma_manager
 from app.routers import auth_router, documents_router, chat_router
 
 
-# ==============================================================
+
 # STEP 1: CONFIGURE LOGGING (must be done before anything else)
-# ==============================================================
+
 # Set up Loguru logging before creating the FastAPI app.
 # This ensures all startup messages are captured properly.
 setup_logging(
@@ -105,9 +105,9 @@ setup_logging(
 )
 
 
-# ==============================================================
+
 # STEP 2: LIFESPAN CONTEXT MANAGER (Modern FastAPI startup/shutdown)
-# ==============================================================
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -180,9 +180,9 @@ async def lifespan(app: FastAPI):
     # Add any cleanup here: close DB connections, flush caches, etc.
 
 
-# ==============================================================
+
 # STEP 3: CREATE THE FASTAPI APPLICATION
-# ==============================================================
+
 
 app = FastAPI(
     # App metadata (shown in /docs Swagger UI)
@@ -235,9 +235,9 @@ A production-grade backend for document-based question answering using
 )
 
 
-# ==============================================================
+
 # STEP 4: ADD MIDDLEWARE
-# ==============================================================
+
 # IMPORTANT: Middleware is applied in REVERSE ORDER of addition.
 # The LAST middleware added is the FIRST to process each request.
 # So the request flow is:
@@ -272,9 +272,9 @@ app.add_middleware(
 )
 
 
-# ==============================================================
+
 # STEP 5: REGISTER ROUTERS
-# ==============================================================
+
 # Each router handles a specific group of endpoints.
 # The prefix defines the URL path prefix for all routes in that router.
 # The tags are used to group endpoints in Swagger UI.
@@ -301,9 +301,9 @@ app.include_router(
 )
 
 
-# ==============================================================
+
 # STEP 6: CUSTOM EXCEPTION HANDLERS
-# ==============================================================
+
 # These catch specific error types and return clean JSON responses
 # instead of raw Python exceptions.
 
@@ -411,9 +411,9 @@ async def general_exception_handler(request: Request, exc: Exception):
     )
 
 
-# ==============================================================
+
 # STEP 7: DEFINE CORE ENDPOINTS
-# ==============================================================
+
 
 @app.get(
     "/",
