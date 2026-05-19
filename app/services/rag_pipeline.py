@@ -1,7 +1,7 @@
 """
-==============================================================
+
 app/services/rag_pipeline.py — RAG Pipeline Orchestrator
-==============================================================
+
 
 WHY THIS FILE EXISTS:
     This is the BRAIN of the entire system — it orchestrates the
@@ -33,40 +33,40 @@ WHAT IS RAG?
         ✓ Accurate, ✓ Source-backed, ✓ From YOUR documents!
 
 THE COMPLETE RAG FLOW:
-    ┌─────────────────────────────────────────────────────────┐
-    │                    QUESTION FLOW                        │
-    │                                                         │
-    │  User Question                                          │
-    │       │                                                 │
-    │       ▼                                                 │
-    │  [1] Embed Question (SentenceTransformers)              │
-    │       │ "What was Q3 revenue?"                         │
-    │       │ → [0.23, -0.11, 0.87, ...]                     │
-    │       │                                                 │
-    │       ▼                                                 │
-    │  [2] Vector Search (ChromaDB)                          │
-    │       │ Find top-K most similar chunks                 │
-    │       │ → 5 chunks with relevance scores               │
-    │       │                                                 │
-    │       ▼                                                 │
-    │  [3] Build Prompt (Prompt Engineering)                  │
-    │       │ "Context: [chunk1] [chunk2] ...                │
-    │       │  Question: What was Q3 revenue?"               │
-    │       │                                                 │
-    │       ▼                                                 │
-    │  [4] LLM Generation (Gemini)                           │
-    │       │ Answer based on context                        │
-    │       │                                                 │
-    │       ▼                                                 │
-    │  [5] Return Response                                    │
-    │       answer + chunks + scores + metadata              │
-    └─────────────────────────────────────────────────────────┘
+    
+                        QUESTION FLOW                        
+                                                             
+      User Question                                          
+                                                            
+           ▼                                                 
+      [1] Embed Question (SentenceTransformers)              
+            "What was Q3 revenue?"                         
+            → [0.23, -0.11, 0.87, ...]                     
+                                                            
+           ▼                                                 
+      [2] Vector Search (ChromaDB)                          
+            Find top-K most similar chunks                 
+            → 5 chunks with relevance scores               
+                                                            
+           ▼                                                 
+      [3] Build Prompt (Prompt Engineering)                  
+            "Context: [chunk1] [chunk2] ...                
+             Question: What was Q3 revenue?"               
+                                                            
+           ▼                                                 
+      [4] LLM Generation (Gemini)                           
+            Answer based on context                        
+                                                            
+           ▼                                                 
+      [5] Return Response                                    
+           answer + chunks + scores + metadata              
+    
 
 HOW IT CONNECTS:
     rag_pipeline.py ← called by chat_router.py
     rag_pipeline.py → uses vector_store.py (retrieve chunks)
     rag_pipeline.py → uses llm_client.py (generate answer)
-==============================================================
+
 """
 
 import time
@@ -136,9 +136,9 @@ class RAGPipeline:
         # Use default top_k from settings if not specified
         k = top_k or settings.top_k
 
-        # ==============================================================
+        # 
         # STEP 1: RETRIEVE RELEVANT CHUNKS
-        # ==============================================================
+        # 
         logger.info(f"Step 1: Retrieving top-{k} relevant chunks")
 
         # Optional: Filter to a specific document
@@ -156,9 +156,9 @@ class RAGPipeline:
 
         logger.info(f"Retrieved {len(retrieved_chunks)} chunks")
 
-        # ==============================================================
+        # 
         # STEP 2: HANDLE EMPTY RESULTS
-        # ==============================================================
+        # 
         if not retrieved_chunks:
             # No documents uploaded yet
             elapsed = time.time() - pipeline_start
@@ -182,9 +182,9 @@ class RAGPipeline:
                 status="no_context"
             )
 
-        # ==============================================================
+        # 
         # STEP 3: FILTER LOW-RELEVANCE CHUNKS
-        # ==============================================================
+        # 
         # Remove chunks with very low relevance scores
         # A score below 0.3 is likely not related to the question
         MIN_RELEVANCE_SCORE = 0.3
@@ -205,9 +205,9 @@ class RAGPipeline:
             f"(scores: {[round(c.relevance_score, 3) for c in relevant_chunks]})"
         )
 
-        # ==============================================================
+        # 
         # STEP 4: GENERATE ANSWER WITH GEMINI
-        # ==============================================================
+        # 
         logger.info("Step 2: Generating answer with Gemini")
         llm_start = time.time()
 
@@ -235,9 +235,9 @@ class RAGPipeline:
                 error_message=str(e)
             )
 
-        # ==============================================================
+        # 
         # STEP 5: ASSEMBLE COMPLETE RESPONSE
-        # ==============================================================
+        # 
         total_elapsed = round(time.time() - pipeline_start, 3)
 
         response = ChatResponse(
@@ -286,8 +286,8 @@ class RAGPipeline:
         )
 
 
-# ==============================================================
+# 
 # SINGLETON INSTANCE
-# ==============================================================
+# 
 
 rag_pipeline = RAGPipeline()

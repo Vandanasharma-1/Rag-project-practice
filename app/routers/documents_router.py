@@ -1,7 +1,7 @@
 """
-==============================================================
+
 app/routers/documents_router.py — Document Management Routes
-==============================================================
+
 
 WHY THIS FILE EXISTS:
     This file handles all document-related API endpoints:
@@ -36,7 +36,7 @@ HOW IT CONNECTS:
     documents_router.py → uses document_processor.py (extract text)
     documents_router.py → uses vector_store.py (store embeddings)
     documents_router.py → uses auth_router.py (get_current_user dependency)
-==============================================================
+
 """
 
 import time
@@ -67,9 +67,9 @@ from app.utils.helpers import (
 )
 from app.utils.logger import logger
 
-# ==============================================================
+
 # ROUTER SETUP
-# ==============================================================
+
 
 router = APIRouter(
     prefix="/documents",
@@ -81,18 +81,18 @@ router = APIRouter(
     }
 )
 
-# ==============================================================
+
 # IN-MEMORY DOCUMENT REGISTRY
-# ==============================================================
+
 # ⚠️ DEMO ONLY: In production, use a database!
 # Stores metadata about uploaded documents
 # {document_id: {filename, chunks, date, user_email, ...}}
 documents_registry: dict = {}
 
 
-# ==============================================================
+
 # API ROUTES
-# ==============================================================
+
 
 @router.post(
     "/upload",
@@ -142,9 +142,9 @@ async def upload_document(
 
     logger.info(f"Document upload started | User: {user_email} | File: {file.filename}")
 
-    # ==============================================================
+    
     # STEP 1: VALIDATE FILE TYPE
-    # ==============================================================
+    
     if not file.filename:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -161,9 +161,9 @@ async def upload_document(
             )
         )
 
-    # ==============================================================
+    
     # STEP 2: READ FILE CONTENT
-    # ==============================================================
+    
     try:
         # Read ALL file bytes into memory
         # For large files, streaming would be better, but this is simpler for demo
@@ -174,9 +174,9 @@ async def upload_document(
             detail=f"Failed to read uploaded file: {str(e)}"
         )
 
-    # ==============================================================
+    
     # STEP 3: VALIDATE FILE SIZE
-    # ==============================================================
+    
     file_size = len(file_content)
 
     if not document_processor.validate_file_size(file_size):
@@ -194,9 +194,9 @@ async def upload_document(
             detail="Uploaded file is empty."
         )
 
-    # ==============================================================
+    
     # STEP 4: PROCESS DOCUMENT (Extract text + chunk)
-    # ==============================================================
+    
     document_id = generate_unique_id()
     safe_filename = create_unique_filename(file.filename)
 
@@ -225,9 +225,9 @@ async def upload_document(
             detail=f"Failed to process document: {str(e)}"
         )
 
-    # ==============================================================
+    
     # STEP 5: STORE EMBEDDINGS IN CHROMADB
-    # ==============================================================
+    
     try:
         # vector_store:
         # 1. Generates embeddings for all chunks (SentenceTransformers)
@@ -246,9 +246,9 @@ async def upload_document(
             detail=f"Failed to store document embeddings: {str(e)}"
         )
 
-    # ==============================================================
+    
     # STEP 6: SAVE TO DOCUMENT REGISTRY
-    # ==============================================================
+    
     from datetime import datetime, timezone
 
     registry_entry = {

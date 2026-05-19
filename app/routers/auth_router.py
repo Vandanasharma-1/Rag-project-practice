@@ -1,7 +1,7 @@
 """
-==============================================================
+
 app/routers/auth_router.py — Authentication Routes
-==============================================================
+
 
 WHY THIS FILE EXISTS:
     This file defines the authentication API endpoints:
@@ -52,7 +52,7 @@ HOW IT CONNECTS:
     auth_router.py → uses auth.py (password hashing, JWT)
     auth_router.py → registered in main.py
     auth_router.py → uses schemas.py (request/response models)
-==============================================================
+
 """
 
 from datetime import timedelta
@@ -72,9 +72,9 @@ from app.utils.auth import hash_password, verify_password, create_access_token, 
 from app.utils.logger import logger
 from app.config.config import settings
 
-# ==============================================================
+# 
 # ROUTER SETUP
-# ==============================================================
+# 
 
 # Create a router with a tag (shows in Swagger UI)
 router = APIRouter(
@@ -86,9 +86,9 @@ router = APIRouter(
     }
 )
 
-# ==============================================================
+# 
 # IN-MEMORY USER DATABASE
-# ==============================================================
+# 
 # ⚠️ DEMO ONLY: In production, use a real database!
 # This is a simple dictionary: {email: user_data}
 #
@@ -104,9 +104,9 @@ router = APIRouter(
 # }
 users_db: Dict[str, dict] = {}
 
-# ==============================================================
+# 
 # OAUTH2 SCHEME
-# ==============================================================
+# 
 # OAuth2PasswordBearer is a FastAPI utility that:
 # 1. Looks for the "Authorization: Bearer <token>" header
 # 2. Extracts the token
@@ -117,9 +117,9 @@ users_db: Dict[str, dict] = {}
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
 
 
-# ==============================================================
+# 
 # DEPENDENCY: Get Current User
-# ==============================================================
+# 
 
 async def get_current_user(token: str = Depends(oauth2_scheme)) -> dict:
     """
@@ -183,9 +183,9 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> dict:
     return user
 
 
-# ==============================================================
+# 
 # API ROUTES
-# ==============================================================
+# 
 
 @router.post(
     "/register",

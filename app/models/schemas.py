@@ -1,7 +1,7 @@
 """
-==============================================================
+
 app/models/schemas.py — Pydantic Data Models (Schemas)
-==============================================================
+
 
 WHY THIS FILE EXISTS:
     This file defines the "shapes" of data that flows in and out
@@ -39,7 +39,7 @@ HOW IT CONNECTS:
     schemas.py → used by ALL routers (auth, documents, chat)
     schemas.py → used by ALL services
     FastAPI uses these to auto-generate /docs Swagger UI
-==============================================================
+
 """
 
 from typing import Optional, List, Any
@@ -47,9 +47,9 @@ from datetime import datetime
 from pydantic import BaseModel, EmailStr, Field, field_validator
 
 
-# ==============================================================
+
 # AUTHENTICATION SCHEMAS
-# ==============================================================
+
 
 class UserRegisterRequest(BaseModel):
     """
@@ -138,9 +138,9 @@ class UserResponse(BaseModel):
     is_active: bool = True
 
 
-# ==============================================================
+
 # DOCUMENT SCHEMAS
-# ==============================================================
+
 
 class DocumentUploadResponse(BaseModel):
     """
@@ -196,9 +196,9 @@ class DocumentDeleteResponse(BaseModel):
     chunks_deleted: int
 
 
-# ==============================================================
+
 # CHAT / RAG SCHEMAS
-# ==============================================================
+
 
 class ChatRequest(BaseModel):
     """
@@ -299,9 +299,9 @@ class ChatResponse(BaseModel):
     error_message: Optional[str] = Field(default=None, description="Error details if status is 'error'")
 
 
-# ==============================================================
+
 # HEALTH CHECK SCHEMA
-# ==============================================================
+
 
 class HealthCheckResponse(BaseModel):
     """
@@ -329,9 +329,9 @@ class HealthCheckResponse(BaseModel):
     services: dict = Field(..., description="Status of each service component")
 
 
-# ==============================================================
+
 # ERROR SCHEMA
-# ==============================================================
+
 
 class ErrorResponse(BaseModel):
     """

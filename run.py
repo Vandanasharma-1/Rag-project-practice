@@ -83,7 +83,7 @@ def main():
     workers=1
         Number of worker processes.
         - Development: 1 worker is fine
-        - Production: Use (2 × CPU cores) + 1 workers
+        - Production: Use (2 x CPU cores) + 1 workers
           For 4-core machine: 9 workers
         
         NOTE: reload=True forces workers=1 (can't multi-process with reload)
@@ -98,19 +98,19 @@ def main():
     """
 
     print(f"""
-╔══════════════════════════════════════════════════════════╗
-║          Enterprise RAG Assistant  v{settings.app_version}              ║
-╠══════════════════════════════════════════════════════════╣
-║  Starting server...                                      ║
-║                                                          ║
-║  Local:    http://localhost:8000                         ║
-║  API:      http://localhost:8000/api/v1                  ║
-║  Docs:     http://localhost:8000/docs                    ║
-║  Health:   http://localhost:8000/health                  ║
-║                                                          ║
-║  Debug mode: {str(settings.debug):<46}  ║
-║  Log level:  {settings.log_level:<46}  ║
-╚══════════════════════════════════════════════════════════╝
+
+          Enterprise RAG Assistant  v{settings.app_version}              ║
+
+  Starting server...                                      
+                                                          
+  Local:    http://localhost:8000                         
+  API:      http://localhost:8000/api/v1                  
+  Docs:     http://localhost:8000/docs                    
+  Health:   http://localhost:8000/health                  
+                                                          
+  Debug mode: {str(settings.debug):<46}  
+  Log level:  {settings.log_level:<46}  
+
     """)
 
     uvicorn.run(

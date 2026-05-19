@@ -1,7 +1,7 @@
 """
-==============================================================
+
 app/services/llm_client.py — LLM Client (Google Gemini)
-==============================================================
+
 
 WHY THIS FILE EXISTS:
     This file manages communication with Google's Gemini AI model.
@@ -41,7 +41,7 @@ WHAT IS PROMPT ENGINEERING?
 HOW IT CONNECTS:
     llm_client.py ← called by rag_pipeline.py
     llm_client.py → calls Google Gemini API
-==============================================================
+
 """
 
 import time
@@ -314,8 +314,8 @@ Please provide a clear, well-structured answer based on the context above:"""
             return False
 
 
-# ==============================================================
+# 
 # SINGLETON INSTANCE
-# ==============================================================
+# 
 
 llm_client = LLMClient()

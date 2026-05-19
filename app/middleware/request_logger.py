@@ -1,7 +1,7 @@
 """
-==============================================================
+
 app/middleware/request_logger.py — HTTP Request Logging Middleware
-==============================================================
+
 
 WHY THIS FILE EXISTS:
     Middleware is code that runs for EVERY REQUEST and RESPONSE,
@@ -46,7 +46,7 @@ UNIQUE REQUEST ID:
 HOW IT CONNECTS:
     request_logger.py → added to FastAPI app in main.py
     Runs automatically for EVERY route without any changes needed
-==============================================================
+
 """
 
 import time

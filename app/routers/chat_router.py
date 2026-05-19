@@ -1,7 +1,7 @@
 """
-==============================================================
+
 app/routers/chat_router.py — Chat/RAG API Routes
-==============================================================
+
 
 WHY THIS FILE EXISTS:
     This is where users interact with the AI assistant.
@@ -33,7 +33,7 @@ HOW IT CONNECTS:
     chat_router.py ← called by HTTP clients
     chat_router.py → uses rag_pipeline.py (the full RAG flow)
     chat_router.py → uses auth_router.py (get_current_user)
-==============================================================
+
 """
 
 import time
@@ -47,9 +47,7 @@ from app.routers.auth_router import get_current_user
 from app.config.config import settings
 from app.utils.logger import logger
 
-# ==============================================================
 # ROUTER SETUP
-# ==============================================================
 
 router = APIRouter(
     prefix="/chat",
@@ -60,18 +58,18 @@ router = APIRouter(
     }
 )
 
-# ==============================================================
+ 
 # IN-MEMORY CONVERSATION HISTORY
-# ==============================================================
-# ⚠️ DEMO ONLY: In production, use a database!
+
+# - DEMO ONLY: In production, use a database!
 # Stores conversation history per user: {email: [messages]}
 conversation_history: dict = {}
 
 
-# ==============================================================
+ 
 # API ROUTES
-# ==============================================================
 
+# We Ask questions here
 @router.post(
     "/ask",
     response_model=ChatResponse,
@@ -123,7 +121,7 @@ async def ask_question(
     """
     user_email = current_user["email"]
     question = chat_request.question
-    top_k = chat_request.top_k or settings.top_k
+    top_k = chat_request.top_k or settings.top_k   
 
     logger.info(
         f"Chat request | User: {user_email} | "
@@ -269,9 +267,9 @@ async def clear_conversation_history(
     }
 
 
-# ==============================================================
+# 
 # HELPER FUNCTIONS
-# ==============================================================
+# 
 
 def _store_conversation(user_email: str, question: str, answer: str) -> None:
     """

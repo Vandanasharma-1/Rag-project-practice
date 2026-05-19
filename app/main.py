@@ -1,7 +1,7 @@
 """
-==============================================================
+
 app/main.py — FastAPI Application Entry Point
-==============================================================
+
 
 WHY THIS FILE EXISTS:
     This is the HEART of the entire application.
@@ -69,7 +69,7 @@ HOW IT CONNECTS:
     main.py → imports and includes all routers
     main.py → imports and adds all middleware
     main.py → called by run.py (which starts Uvicorn)
-==============================================================
+
 """
 
 import time
@@ -82,13 +82,13 @@ from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-# --- Our Application Modules ---
+#  Our Application Modules 
 from app.config.config import settings
 from app.utils.logger import logger, setup_logging
 from app.middleware.request_logger import RequestLoggingMiddleware
 from app.database.chroma_manager import chroma_manager
 
-# --- Routers ---
+#  Routers 
 # Each router handles a specific group of endpoints
 from app.routers import auth_router, documents_router, chat_router
 
@@ -135,8 +135,7 @@ async def lifespan(app: FastAPI):
         2. Close any open connections (graceful shutdown)
     """
 
-    # ==================== STARTUP ====================
-    logger.info("-" * 60)
+    # TARTUP    logger.info("-" * 60)
     logger.info(f"  {settings.app_name} v{settings.app_version}")
     logger.info("  Starting up...")
     logger.info("-" * 60)
@@ -170,11 +169,9 @@ async def lifespan(app: FastAPI):
     logger.info(f"  API:  http://localhost:8000/api/v1")
     logger.info("=" * 60)
 
-    # ==================== YIELD (App runs here) ====================
-    yield  # ← The application runs while we wait here
+    # IELD (App runs here)    yield  # ← The application runs while we wait here
 
-    # ==================== SHUTDOWN ====================
-    logger.info("=" * 60)
+    # HUTDOWN    logger.info("=" * 60)
     logger.info("  Shutting down gracefully...")
     logger.info("=" * 60)
     # Add any cleanup here: close DB connections, flush caches, etc.
@@ -194,16 +191,16 @@ A production-grade backend for document-based question answering using
 **Retrieval-Augmented Generation (RAG)**.
 
 ### Features
-- 🔐 **JWT Authentication** — Secure register/login
-- 📄 **Document Ingestion** — Upload PDF, TXT, DOCX files
-- 🧠 **Semantic Search** — Find relevant content using vector similarity
-- 🤖 **AI Answers** — Google Gemini generates contextual answers
-- 📊 **Source Attribution** — Every answer shows its source chunks
+-  **JWT Authentication** — Secure register/login
+-  **Document Ingestion** — Upload PDF, TXT, DOCX files
+-  **Semantic Search** — Find relevant content using vector similarity
+-  **AI Answers** — Google Gemini generates contextual answers
+- **Source Attribution** — Every answer shows its source chunks
 
 ### How to Use
 1. **Register** a new account via `POST /api/v1/auth/register`
 2. **Login** to get a JWT token via `POST /api/v1/auth/login`
-3. **Authorize** by clicking the 🔒 button and entering `Bearer <your_token>`
+3. **Authorize** by clicking the  button and entering `Bearer <your_token>`
 4. **Upload** documents via `POST /api/v1/documents/upload`
 5. **Ask** questions via `POST /api/v1/chat/ask`
 
@@ -225,13 +222,13 @@ A production-grade backend for document-based question answering using
     lifespan=lifespan,
 
     # Contact and license info for API docs
-    contact={
-        "name": "Enterprise RAG Team",
-        "email": "support@enterprise-rag.com",
-    },
-    license_info={
-        "name": "MIT License",
-    },
+    # contact={
+    #     "name": "Enterprise RAG Team",
+    #     "email": "support@enterprise-rag.com",
+    # },
+    # license_info={
+    #     "name": "MIT License",
+    # },
 )
 
 
@@ -243,12 +240,12 @@ A production-grade backend for document-based question answering using
 # So the request flow is:
 # Request → RequestLoggingMiddleware → CORSMiddleware → Routes
 
-# --- Middleware 1: Request Logging ---
+#  Middleware 1: Request Logging 
 # This logs every incoming request and outgoing response.
 # Added FIRST so it wraps the entire request lifecycle.
 app.add_middleware(RequestLoggingMiddleware)
 
-# --- Middleware 2: CORS (Cross-Origin Resource Sharing) ---
+#  Middleware 2: CORS (Cross-Origin Resource Sharing) 
 # This adds CORS headers to ALL responses.
 # Required for browser-based frontends to call this API.
 app.add_middleware(

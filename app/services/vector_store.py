@@ -1,7 +1,7 @@
 """
-==============================================================
+
 app/services/vector_store.py — Vector Store Service
-==============================================================
+
 
 WHY THIS FILE EXISTS:
     This service handles the EMBEDDING and STORAGE of text chunks,
@@ -50,7 +50,7 @@ HOW IT CONNECTS:
     vector_store.py ← called by documents_router.py (store chunks)
     vector_store.py ← called by rag_pipeline.py (retrieve chunks)
     vector_store.py → uses chroma_manager.py (database operations)
-==============================================================
+
 """
 
 import time
@@ -466,8 +466,8 @@ class VectorStore:
         return chunks
 
 
-# ==============================================================
+# 
 # SINGLETON INSTANCE
-# ==============================================================
+# 
 
 vector_store = VectorStore()

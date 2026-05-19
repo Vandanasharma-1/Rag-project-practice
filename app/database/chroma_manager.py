@@ -1,7 +1,7 @@
 """
-==============================================================
+
 app/database/chroma_manager.py — ChromaDB Vector Database Manager
-==============================================================
+
 
 WHY THIS FILE EXISTS:
     This file manages our vector database (ChromaDB).
@@ -48,7 +48,7 @@ HOW SIMILARITY SEARCH WORKS:
 HOW IT CONNECTS:
     chroma_manager.py → used by vector_store.py (add/search chunks)
     vector_store.py → used by rag_pipeline.py (the full RAG flow)
-==============================================================
+
 """
 
 import chromadb
@@ -229,9 +229,9 @@ class ChromaManager:
             return False
 
 
-# ==============================================================
+
 # SINGLETON INSTANCE
-# ==============================================================
+
 
 # Create a single ChromaDB manager instance for the whole application.
 # This is imported by vector_store.py.

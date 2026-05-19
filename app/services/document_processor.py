@@ -1,7 +1,7 @@
 """
-==============================================================
+
 app/services/document_processor.py — Document Processing Service
-==============================================================
+
 
 WHY THIS FILE EXISTS:
     When a user uploads a PDF, Word doc, or text file, we need to:
@@ -34,7 +34,7 @@ HOW IT CONNECTS:
     document_processor.py ← called by documents_router.py
     document_processor.py → returns chunks to documents_router.py
     documents_router.py → passes chunks to vector_store.py
-==============================================================
+
 """
 
 import os
@@ -335,8 +335,8 @@ class DocumentProcessor:
         return file_size <= settings.max_file_size
 
 
-# ==============================================================
+# 
 # SINGLETON INSTANCE
-# ==============================================================
+# 
 
 document_processor = DocumentProcessor()
